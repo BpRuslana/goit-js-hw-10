@@ -1,4 +1,4 @@
-import { fetchBreeds, fetchCatByBreed } from "./cat-api";
+import { fetchBreeds, fetchCatByBreed } from "./js/cat-api.js";
 
 import Notiflix from 'notiflix';
 
@@ -24,8 +24,12 @@ function renderSelect(){
         new SlimSelect({
             select: '#selectElement',
           })
+           refs.breedSelect.classList.remove('is-hidden');
     })
-    .catch(showError)
+    .catch(err=>{
+        showError();
+        refs.breedSelect.classList.add('is-hidden');
+    })
     .finally(hideLoader);   
 }
 window.addEventListener("DOMContentLoaded", renderSelect);
@@ -62,7 +66,7 @@ function showLoader(){
 }
 function hideLoader(){
     document.body.classList.remove('show-loader');
-    refs.breedSelect.classList.remove('is-hidden');
+   
     refs.catInfo.classList.remove('is-hidden');
 }
 
